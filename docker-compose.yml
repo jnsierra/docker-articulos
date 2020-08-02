@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+    micro-principal:
+        build: .
+        ports:
+         - "8080:8081"
+        environment:
+         - PROFILE_JAR=prod
