@@ -4,7 +4,6 @@ services:
     micro-principal:
         build: .
         ports:
-         - "8082:8080"
-         - "50000:50000"
+         - "8080:8081"
         environment:
          - PROFILE_JAR=prod
