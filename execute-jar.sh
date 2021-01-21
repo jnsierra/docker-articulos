@@ -1,1 +1,0 @@
-java -jar -Dspring.profiles.active=$profile_jar api.jar
