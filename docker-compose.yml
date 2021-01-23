@@ -5,5 +5,86 @@ services:
         build: ./server-config
         ports:
          - "8888:8888"
+        networks:
+         - api-article-net
         environment:
          - PROFILE_JAR=prod
+    server-discovery:
+        build: ./server-discovery
+        ports:
+         - "1111:1111"
+        networks:
+         - api-article-net
+        environment:
+         - PROFILE_JAR=prod
+    service-postgres12:
+        image: postgres:12-alpine
+        ports:
+         - "5432:5432"
+        networks:
+         - api-article-net
+        restart: always
+        environment: 
+            POSTGRES_DB: articulos
+            POSTGRES_PASSWORD: 12345678
+    service-rabbitmq:
+        image: rabbitmq:3.8.10-management-alpine
+        ports:
+         - "15672:15672"
+         - "5672:5672"
+        networks:
+         - api-article-net
+    service-zipkin:
+        build: ./server-zipkin
+        ports:
+                - "9411:9411"
+        networks:
+         - api-article-net
+        environment:
+         - RABBIT_ADDRESSES=service-rabbitmq:5672
+        depends_on:
+         - service-rabbitmq
+    service-acceso-datos:
+        build: ./server-acceso-datos
+        ports:
+         - "5003:5003"
+        networks:
+         - api-article-net
+        environment:
+         - PROFILE_JAR=prod
+        depends_on:
+         - service-rabbitmq 
+         - service-zipkin
+         - service-postgres12
+         - server-discovery
+         - server-config
+    service-business:
+        build: ./server-business
+        ports:
+         - "5000:5000"
+        networks:
+         - api-article-net
+        environment:
+         - PROFILE_JAR=prod
+        depends_on:
+         - service-rabbitmq
+         - service-zipkin
+         - service-postgres12
+         - server-discovery
+         - server-config
+    service-gateway:
+        build: ./server-gateway
+        ports:
+         - "5002:5002"
+        networks:
+         - api-article-net
+        environment:
+         - PROFILE_JAR=prod
+        depends_on:
+         - service-rabbitmq
+         - service-zipkin
+         - service-postgres12
+         - server-discovery
+         - server-config
+networks: 
+    api-article-net: 
