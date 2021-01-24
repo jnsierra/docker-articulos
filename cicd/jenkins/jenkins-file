@@ -4,7 +4,12 @@ pipeline {
   stages {
     stage('Build'){
       steps {
-        echo 'Building..'
+        sh 'echo "Building.."'
+        sh '''
+            echo "Por cierto, puedo ejecutar mas acciones aqui"
+            ls -lah
+        '''
+        
       }
     }
     stage('Test') {
