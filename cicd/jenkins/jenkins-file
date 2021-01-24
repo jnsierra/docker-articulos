@@ -1,10 +1,13 @@
+String urlRepo = "https://github.com/jnsierra/api-article.git"
+
 pipeline {
   agent any
   
   stages {
-    stage('Build'){
+    stage('Clone Repo'){
       steps {
-        sh 'echo "Building.."'
+        echo 'Ini Building...'
+	echo 'Fin Building...'
       }
     }
     stage('Test') {
