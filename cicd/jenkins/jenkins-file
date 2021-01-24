@@ -5,16 +5,16 @@ pipeline {
     stage('Build'){
       steps {
         sh 'echo "Building.."'
-        sh '''
-            echo "Por cierto, puedo ejecutar mas acciones aqui"
-            ls -lah
-        '''
-        
       }
     }
     stage('Test') {
       steps {
         echo 'Testing...'
+      }
+    }
+    stage('Push'){
+      steps{
+        sh 'echo push'
       }
     }
     stage('Deploy'){
