@@ -9,6 +9,9 @@ pipeline {
         echo 'Ini Building...'
         echo 'Esta es la url del repo: ' + urlRepo
 	sh 'mkdir -p build'
+	dir('build'){
+	  git branch: 'develop', url: urlRepo
+	}
 	echo 'Fin Building...'
       }
     }
