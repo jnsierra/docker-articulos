@@ -7,6 +7,8 @@ pipeline {
     stage('Clone Repo'){
       steps {
         echo 'Ini Building...'
+        echo 'Esta es la url del repo: ' + urlRepo
+	sh 'mkdir -p build'
 	echo 'Fin Building...'
       }
     }
