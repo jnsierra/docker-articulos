@@ -43,7 +43,12 @@ pipeline {
     }
     stage('Deploy'){
       steps{
-        echo 'Deploying...'
+        echo 'Iniciamos con el deploy'
+	sh 'docker-compose down'
+	sh 'docker-compose build'
+	sh 'docker-compose up -d server-config server-discovery service-rabbitmq service-postgres12'
+	sh 'docker-compose up -d service-zipkin'
+	sh 'docker-compose up -d'
       }
     }
   }
