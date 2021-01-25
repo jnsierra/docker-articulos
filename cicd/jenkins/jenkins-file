@@ -23,10 +23,10 @@ pipeline {
       	echo 'Iniciamos a copiar los artefactos generados'
         sh 'mkdir -p jars'
 	sh 'mv build/api-acceso-datos/target/api-acceso-datos.jar jars/'
-	sh 'mv build/server-business/target/api-business.jar jars/'
-	sh 'mv build/server-config/target/api-server-config.jar jars/'
-	sh 'mv build/server-discovery/target/api-service-discovery.jar jars/'
-	sh 'mv build/server-gateway/target/api-gateway.jar jars/'
+	sh 'mv build/api-business/target/api-business.jar jars/'	
+	sh 'mv build/api-server-config/target/api-server-config.jar jars/'
+	sh 'mv build/api-service-discovery/target/api-service-discovery.jar jars/'
+	sh 'mv build/api-gateway/target/api-gateway.jar jars/'
 	echo 'Finalizamos la copia de los artefactos generados'
       }
     }
