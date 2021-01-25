@@ -15,7 +15,19 @@ pipeline {
 	echo 'Compilando y construyendo el codigo desde maven'
 	sh 'docker run --rm -v /root/.m2:/root/.m2 -v /opt/docker/cicd/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package'
 	echo 'Fin Building...'
-	sh 'mkdir -p jars'
+      }
+    }
+    
+    stage('Copy jars'){
+      steps{
+      	echo 'Iniciamos a copiar los artefactos generados'
+        sh 'mkdir -p jars'
+	sh 'mv build/api-acceso-datos/target/api-acceso-datos.jar jars/'
+	sh 'mv build/server-business/target/api-business.jar jars/'
+	sh 'mv build/server-config/target/api-server-config.jar jars/'
+	sh 'mv build/server-discovery/target/api-service-discovery.jar jars/'
+	sh 'mv build/server-gateway/target/api-gateway.jar jars/'
+	echo 'Finalizamos la copia de los artefactos generados'
       }
     }
     
