@@ -20,3 +20,4 @@ workflow-aggregator:latest
 ws-cleanup:latest
 authorize-project:latest
 maven-plugin:latest
+pipeline-maven:latest
