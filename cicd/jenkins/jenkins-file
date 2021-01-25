@@ -47,7 +47,11 @@ pipeline {
 	sh 'docker-compose down'
 	sh 'docker-compose build'
 	sh 'docker-compose up -d server-config server-discovery service-rabbitmq service-postgres12'
+	echo 'Esperamos para subir los servicios de configuracion'
+	sh 'sleep 30'
 	sh 'docker-compose up -d service-zipkin'
+	echo 'Esperamos para subir el servicio de zipkin'
+	sh 'sleep 30'
 	sh 'docker-compose up -d'
       }
     }
