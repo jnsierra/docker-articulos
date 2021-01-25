@@ -2,7 +2,6 @@ String urlRepo = "https://github.com/jnsierra/api-article.git"
 
 pipeline {
   agent any
-  def rtMaven = Artifactory.newMavenBuild()
   
   stages {
     stage('Clone Repo'){
@@ -13,15 +12,10 @@ pipeline {
 	dir('build'){
 	  git branch: 'develop', url: urlRepo
 	}
+	echo 'Compilando y construyendo el codigo desde maven'
+	sh 'docker run --rm -v /root/.m2:/root/.m2 -v /opt/docker/cicd/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package'
 	echo 'Fin Building...'
       }
-    }
-    stage('Artifactory configuration') {
-        // Tool name from Jenkins configuration
-        rtMaven.tool = "Maven-3.3.9"
-        // Set Artifactory repositories for dependencies resolution and artifacts deployment.
-        rtMaven.deployer releaseRepo:'libs-release-local', snapshotRepo:'libs-snapshot-local', server: server
-        rtMaven.resolver releaseRepo:'libs-release', snapshotRepo:'libs-snapshot', server: server
     }
     
     stage('Test') {
