@@ -39,7 +39,9 @@ pipeline {
         stage('Tag Images'){
             steps {
                 echo 'Ini Tag images...'
-                sh 'docker build -f server-acceso-datos/Dockerfile  -t "'+ipRegistry+':5000/api-server-config:latest" .'
+                dir('server-acceso-datos'){
+                    sh 'docker build -t "'+ipRegistry+':5000/api-server-config:latest" .'
+                }                
                 echo 'Fin Tag images...'
             }
         }
