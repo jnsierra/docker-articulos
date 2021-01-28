@@ -36,6 +36,11 @@ pipeline {
                 echo 'Finish Testing...'
               }
         }
+        stage('Remove images...'){
+            steps{
+                sh 'docker rmi '+ipRegistry+':5000/server-gateway '+ipRegistry+':5000/server-discovery '+ipRegistry+':5000/server-config '+ipRegistry+':5000/server-business '+ipRegistry+':5000/server-acceso-datos '+ipRegistry+':5000/server-zipkin'
+            }
+        }
         stage('Tag Images'){
             steps {
                 echo 'Ini Tag images...'
