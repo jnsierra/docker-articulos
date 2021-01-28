@@ -3,6 +3,13 @@ String ipRegistry = "192.168.0.11"
 
 pipeline {
     agent any
+    parameters {
+        choice(
+            choices: ['greeting' , 'silence'],
+            description: '',
+            name: 'REQUESTED_ACTION')
+    }
+
     stages {
         stage('Clone Repo'){
           steps {
