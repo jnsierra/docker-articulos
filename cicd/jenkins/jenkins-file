@@ -17,7 +17,6 @@ pipeline {
 	echo 'Fin Building...'
       }
     }
-    
     stage('Copy jars'){
       steps{
       	echo 'Iniciamos a copiar los artefactos generados'
@@ -30,30 +29,11 @@ pipeline {
 	echo 'Finalizamos la copia de los artefactos generados'
       }
     }
-    
     stage('Test') {
       steps {
-        echo 'Testing...'
+        echo 'Start Testing...'
+        sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package'
+        echo 'Finish Testing...'
       }
     }
-    stage('Push'){
-      steps{
-        sh 'echo push'
-      }
-    }
-    stage('Deploy'){
-      steps{
-        echo 'Iniciamos con el deploy'
-	sh 'docker-compose down'
-	sh 'docker-compose build'
-	sh 'docker-compose up -d server-config server-discovery service-rabbitmq service-postgres12'
-	echo 'Esperamos para subir los servicios de configuracion'
-	sh 'sleep 30'
-	sh 'docker-compose up -d service-zipkin'
-	echo 'Esperamos para subir el servicio de zipkin'
-	sh 'sleep 30'
-	sh 'docker-compose up -d'
-      }
-    }
-  }
 }
