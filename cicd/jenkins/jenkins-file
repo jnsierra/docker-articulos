@@ -5,9 +5,10 @@ pipeline {
     agent any
     parameters {
         choice(
-            choices: ['greeting' , 'silence'],
-            description: '',
-            name: 'REQUESTED_ACTION')
+            choices: ['SI' , 'NO'],
+            description: 'Al encontrarse en si el parametro ejecutara el comando para eliminar las imagenes locales previas al despliegue',
+            name: 'BORRAR_IMAGENES'
+        )
     }
 
     stages {
