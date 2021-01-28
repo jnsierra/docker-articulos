@@ -63,12 +63,12 @@ pipeline {
         stage('Push Images'){
             steps {
                 echo 'Ini up images registry'
-                sh 'docker push "'+ipRegistry+':5000/api-server-config:latest'
-                sh 'docker push "'+ipRegistry+':5000/server-business:latest'
-                sh 'docker push "'+ipRegistry+':5000/server-discovery:latest'
-                sh 'docker push "'+ipRegistry+':5000/server-gateway:latest'
-                sh 'docker push "'+ipRegistry+':5000/server-acceso-datos:latest'
-                sh 'docker push "'+ipRegistry+':5000/server-zipkin:latest'                
+                sh 'docker push '+ipRegistry+':5000/api-server-config:latest'
+                sh 'docker push '+ipRegistry+':5000/server-business:latest'
+                sh 'docker push '+ipRegistry+':5000/server-discovery:latest'
+                sh 'docker push '+ipRegistry+':5000/server-gateway:latest'
+                sh 'docker push '+ipRegistry+':5000/server-acceso-datos:latest'
+                sh 'docker push '+ipRegistry+':5000/server-zipkin:latest'                
                 echo 'Fin up images registry'
             }
         }
