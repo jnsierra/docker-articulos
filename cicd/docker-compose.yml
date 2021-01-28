@@ -3,7 +3,7 @@ version: '3'
 services:
     jenkins:
         user: root
-        build: ./jenkins
+        image: 192.168.0.11:5000/api-jenkins:latest
         ports:
          - "8082:8080"
          - "50000:50000"
@@ -13,6 +13,9 @@ services:
         environment:
          - JENKINS_ADMIN_ID=admin
          - JENKINS_ADMIN_PASSWORD=admin
+        deploy:
+            mode: replicated
+            replicas: 1
     #nexus:
     #    image: "sonatype/nexus3"
     #    ports:
