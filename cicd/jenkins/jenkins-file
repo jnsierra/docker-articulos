@@ -17,13 +17,24 @@ pipeline {
             echo 'Ini Building...'
             echo 'Esta es la url del repo: ' + urlRepo
             sh 'mkdir -p build'
-            dir('build'){
-              git branch: 'develop', url: urlRepo
-            }
-            echo 'Compilando y construyendo el codigo desde maven'
-            sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package'
-            echo 'Fin Building...'
           }
+        }
+        stage('Test'){
+            steps{
+                echo 'Start Testing...'
+                sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B test'
+                echo 'Finish Testing...'
+            }
+        }
+        stage('Build'){
+            steps{
+                dir('build'){
+                    git branch: 'develop', url: urlRepo
+                }
+                echo 'Compilando y construyendo el codigo desde maven'
+                sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package'
+                echo 'Fin Building...' 
+            }
         }
         stage('Copy jars'){
           steps{
@@ -36,13 +47,6 @@ pipeline {
             sh 'mv build/api-gateway/target/api-gateway.jar server-gateway/jar/'
             echo 'Finalizamos la copia de los artefactos generados'
           }
-        }
-        stage('Test') {
-              steps {
-                echo 'Start Testing...'
-                sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B test'
-                echo 'Finish Testing...'
-              }
         }
         stage('Remove images...'){
              when {
@@ -87,6 +91,11 @@ pipeline {
                 sh 'docker push '+ipRegistry+':5000/server-acceso-datos:latest'
                 sh 'docker push '+ipRegistry+':5000/server-zipkin:latest'                
                 echo 'Fin up images registry'
+            }
+        }
+        stage('deploy stack'){
+            steps{
+                sh 'docker stack deploy -c docker-compose.yml api-servie'
             }
         }
    }
