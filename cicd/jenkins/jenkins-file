@@ -95,7 +95,7 @@ pipeline {
         }
         stage('deploy stack'){
             steps{
-                sh 'docker stack deploy -c docker-compose.yml api-servie'
+                sh 'docker stack deploy -c docker-compose.yml api-service'
             }
         }
    }
