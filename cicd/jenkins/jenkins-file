@@ -19,21 +19,21 @@ pipeline {
             sh 'mkdir -p build'
           }
         }
-        stage('Build and Test'){
+        stage('Test'){
             steps{
-                parallel("Test":{
-                    echo 'Start Testing...'
-                    sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B test'
-                    echo 'Finish Testing...'
+                echo 'Start Testing...'
+                sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B test'
+                echo 'Finish Testing...'
+            }
+        }
+        stage('Build'){
+            steps{
+                dir('build'){
+                    git branch: 'develop', url: urlRepo
                 }
-                ,"Build":{
-                    dir('build'){
-                        git branch: 'develop', url: urlRepo
-                    }
-                    echo 'Compilando y construyendo el codigo desde maven'
-                    sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package'
-                    echo 'Fin Building...'                
-                })
+                echo 'Compilando y construyendo el codigo desde maven'
+                sh 'docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package'
+                echo 'Fin Building...' 
             }
         }
         stage('Copy jars'){
