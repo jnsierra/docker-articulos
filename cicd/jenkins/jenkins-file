@@ -15,7 +15,14 @@ pipeline {
         stage('Delete Stack'){
             steps{
                 echo 'Ini delete stack'
-                sh 'docker stack rm api-service'
+                script {
+                    try {
+                        sh 'docker stack rm api-service'
+                     } catch (Exception e) {
+                      echo 'Exception occurred: ' + e.toString()
+                     }
+                }
+                
                 echo 'Fin delete stack'
             }
         }
