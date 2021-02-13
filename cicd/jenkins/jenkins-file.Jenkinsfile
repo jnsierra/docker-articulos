@@ -1,0 +1,146 @@
+String urlRepoBack  = "https://github.com/jnsierra/api-article.git"
+String urlRepoFront = "https://github.com/jnsierra/articulos-web.git"
+String ipRegistry = "192.168.0.11"
+
+pipeline {
+    agent any
+    parameters {
+        choice(
+            choices: ['SI' , 'NO'],
+            description: 'Al encontrarse en si el parametro ejecutara el comando para eliminar las imagenes locales previas al despliegue',
+            name: 'BORRAR_IMAGENES'
+        )
+        choice(
+            choices: ['FRONTEND' , 'BACKEND', 'ALL'],
+            description: 'Indica el tipo de despliegue que se debe realizar',
+            name: 'TIPO_DESPLIEGUE'
+        )
+    }
+
+    stages {
+        stage('Delete Stack'){
+            steps{
+                echo 'Ini delete stack'
+                script {
+                    try {
+                        sh 'docker stack rm api-service'
+                     } catch (Exception e) {
+                      echo 'No fue posible borrar el stack'
+                     }
+                }
+                
+                echo 'Fin delete stack'
+            }
+        }
+        stage('Clone Repo Front and Backend'){
+          steps {
+            echo 'Ini Sync repo Back'
+            sh 'mkdir -p build-back'
+            dir('build-back'){
+                    git branch: 'develop', url: urlRepoBack
+            }
+            echo 'Fin Sync repo Back'
+
+            echo 'Ini Sync repo Back'
+            sh 'mkdir -p build-front'
+            dir('build-front'){
+                    git branch: 'develop', url: urlRepoBack
+            }
+            echo 'Fin Sync repo Back'
+          }
+        }
+        stage('Test'){
+            steps{
+                echo 'Start Testing...'
+                sh '''
+                     docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build-back:/app \
+                     -w /app maven:3-openjdk-11 mvn -B test
+                   '''
+                echo 'Finish Testing...'
+            }
+        }
+        stage('Build'){
+            steps{
+                
+                echo 'Compilando y construyendo el codigo desde maven'
+                sh ''' 
+                    docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app \
+                                    -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package
+                   '''
+                echo 'Fin Building...' 
+            }
+        }
+        stage('Copy jars'){
+          steps{
+            echo 'Iniciamos a copiar los artefactos generados'
+            sh 'mkdir -p jars'
+            sh 'mv build/api-acceso-datos/target/api-acceso-datos.jar server-acceso-datos/jar/'
+            sh 'mv build/api-business/target/api-business.jar server-business/jar/'	
+            sh 'mv build/api-server-config/target/api-server-config.jar server-config/jar/'
+            sh 'mv build/api-service-discovery/target/api-service-discovery.jar server-discovery/jar/'
+            sh 'mv build/api-gateway/target/api-gateway.jar server-gateway/jar/'
+            echo 'Finalizamos la copia de los artefactos generados'
+          }
+        }
+        stage('Remove images...'){
+             when {
+                // Solo ejecuta la eliminacion de imagenes si se envia si
+                expression { params.BORRAR_IMAGENES == 'SI' }
+            }
+            steps{
+                script{
+                     try {
+                        sh 'docker rmi '+ipRegistry+':5000/server-gateway '+ipRegistry+':5000/server-discovery '
+                        sh 'docker rmi '+ipRegistry+':5000/server-config '
+                        sh 'docker rmi '+ipRegistry+':5000/server-business '
+                        sh 'docker rmi '+ipRegistry+':5000/server-acceso-datos '
+                        sh 'docker rmi '+ipRegistry+':5000/server-zipkin'
+                     } catch (Exception e) {
+                      echo 'No fue posible borrar el stack'
+                     }
+                }
+            }
+        }
+        stage('Tag Images'){
+            steps {
+                echo 'Ini Tag images...'
+                dir('server-acceso-datos'){
+                    sh 'docker build -t "'+ipRegistry+':5000/server-acceso-datos:latest" .'
+                }   
+                dir('server-business'){
+                    sh 'docker build -t "'+ipRegistry+':5000/server-business:latest" .'
+                } 
+                dir('server-config'){
+                    sh 'docker build -t "'+ipRegistry+':5000/server-config:latest" .'
+                }
+                dir('server-discovery'){
+                    sh 'docker build -t "'+ipRegistry+':5000/server-discovery:latest" .'
+                }
+                dir('server-gateway'){
+                    sh 'docker build -t "'+ipRegistry+':5000/server-gateway:latest" .'
+                }
+                dir('server-zipkin'){
+                    sh 'docker build -t "'+ipRegistry+':5000/server-zipkin:latest" .'
+                }
+                echo 'Fin Tag images...'
+            }
+        }
+        stage('Push Images'){
+            steps {
+                echo 'Ini up images registry'
+                sh 'docker push '+ipRegistry+':5000/server-config:latest'
+                sh 'docker push '+ipRegistry+':5000/server-business:latest'
+                sh 'docker push '+ipRegistry+':5000/server-discovery:latest'
+                sh 'docker push '+ipRegistry+':5000/server-gateway:latest'
+                sh 'docker push '+ipRegistry+':5000/server-acceso-datos:latest'
+                sh 'docker push '+ipRegistry+':5000/server-zipkin:latest'                
+                echo 'Fin up images registry'
+            }
+        }
+        stage('deploy stack'){
+            steps{
+                sh 'docker stack deploy -c docker-compose.yml api-service'
+            }
+        }
+   }
+}
