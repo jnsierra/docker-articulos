@@ -12,6 +12,13 @@ pipeline {
     }
 
     stages {
+        stage('Delete Stack'){
+            steps{
+                echo 'Ini delete stack'
+                sh 'docker stack rm api-service'
+                echo 'Fin delete stack'
+            }
+        }
         stage('Clone Repo'){
           steps {
             echo 'Ini Building...'
