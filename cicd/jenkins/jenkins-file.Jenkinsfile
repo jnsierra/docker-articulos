@@ -34,19 +34,17 @@ pipeline {
         }
         stage('Clone Repo Front and Backend'){
           steps {
-            echo 'Ini Sync repo Back'
-            sh 'mkdir -p build-back'
-            dir('build-back'){
-                    git branch: 'develop', url: urlRepoBack
-            }
-            echo 'Fin Sync repo Back'
-
-            echo 'Ini Sync repo Front'
-            sh 'mkdir -p build-front'
-            dir('build-front'){
+              parallel("Clone repo Back": {
+                sh 'mkdir -p build-back'
+                dir('build-back'){
+                        git branch: 'develop', url: urlRepoBack
+                }
+              }, "Clone Repo Front":{
+                sh 'mkdir -p build-front'
+                dir('build-front'){
                     git branch: 'master', url: urlRepoFront
-            }
-            echo 'Fin Sync repo front'
+                }
+              })
           }
         }
         stage('Test'){
