@@ -62,7 +62,8 @@ pipeline {
                 
                 echo 'Compilando y construyendo el codigo desde maven'
                 sh ''' 
-                    docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build:/app \
+                    docker run --rm -v /root/.m2:/root/.m2 \
+                                    -v /volumenes/vol_jenkins/workspace/pipeline-job/build-back:/app \
                                     -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package
                    '''
                 echo 'Fin Building...' 
@@ -72,11 +73,11 @@ pipeline {
           steps{
             echo 'Iniciamos a copiar los artefactos generados'
             sh 'mkdir -p jars'
-            sh 'mv build/api-acceso-datos/target/api-acceso-datos.jar server-acceso-datos/jar/'
-            sh 'mv build/api-business/target/api-business.jar server-business/jar/'	
-            sh 'mv build/api-server-config/target/api-server-config.jar server-config/jar/'
-            sh 'mv build/api-service-discovery/target/api-service-discovery.jar server-discovery/jar/'
-            sh 'mv build/api-gateway/target/api-gateway.jar server-gateway/jar/'
+            sh 'mv build-back/api-acceso-datos/target/api-acceso-datos.jar server-acceso-datos/jar/'
+            sh 'mv build-back/api-business/target/api-business.jar server-business/jar/'	
+            sh 'mv build-back/api-server-config/target/api-server-config.jar server-config/jar/'
+            sh 'mv build-back/api-service-discovery/target/api-service-discovery.jar server-discovery/jar/'
+            sh 'mv build-back/api-gateway/target/api-gateway.jar server-gateway/jar/'
             echo 'Finalizamos la copia de los artefactos generados'
           }
         }
