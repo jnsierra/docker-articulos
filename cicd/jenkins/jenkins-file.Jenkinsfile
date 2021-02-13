@@ -41,12 +41,12 @@ pipeline {
             }
             echo 'Fin Sync repo Back'
 
-            echo 'Ini Sync repo Back'
+            echo 'Ini Sync repo Front'
             sh 'mkdir -p build-front'
             dir('build-front'){
-                    git branch: 'develop', url: urlRepoFront
+                    git branch: 'master', url: urlRepoFront
             }
-            echo 'Fin Sync repo Back'
+            echo 'Fin Sync repo front'
           }
         }
         stage('Test'){
