@@ -44,7 +44,7 @@ pipeline {
             echo 'Ini Sync repo Back'
             sh 'mkdir -p build-front'
             dir('build-front'){
-                    git branch: 'develop', url: urlRepoBack
+                    git branch: 'develop', url: urlRepoFront
             }
             echo 'Fin Sync repo Back'
           }
