@@ -19,7 +19,7 @@ pipeline {
                     try {
                         sh 'docker stack rm api-service'
                      } catch (Exception e) {
-                      echo 'Exception occurred: ' + e.toString()
+                      echo 'No fue posible borrar el stack'
                      }
                 }
                 
@@ -74,7 +74,19 @@ pipeline {
                 expression { params.BORRAR_IMAGENES == 'SI' }
             }
             steps{
-                sh 'docker rmi '+ipRegistry+':5000/server-gateway '+ipRegistry+':5000/server-discovery '+ipRegistry+':5000/server-config '+ipRegistry+':5000/server-business '+ipRegistry+':5000/server-acceso-datos '+ipRegistry+':5000/server-zipkin'
+                script{
+                     try {
+                        sh '''
+                            docker rmi '+ipRegistry+':5000/server-gateway '+ipRegistry+':5000/server-discovery '
+                                        +ipRegistry+':5000/server-config '
+                                        +ipRegistry+':5000/server-business '
+                                        +ipRegistry+':5000/server-acceso-datos '
+                                        +ipRegistry+':5000/server-zipkin
+                           '''
+                     } catch (Exception e) {
+                      echo 'No fue posible borrar el stack'
+                     }
+                }
             }
         }
         stage('Tag Images'){
