@@ -1,0 +1,29 @@
+#!/bin/bash
+
+
+# Get branch name from ref head
+
+if ! [ -t 0 ]; then
+  read -a ref
+fi
+IFS='/' read -ra REF <<< "${ref[2]}"
+branch="${REF[2]}"
+
+if [ $branch == "master" ]; then
+
+export JENKINS_URL=http://192.168.0.20:8082
+export JENKINS_USER=admin
+export JENKINS_TOKEN=admin
+export JOB_NAME=pipeline-job-frontend
+export COOKIE_JAR=/tmp/cookies
+
+JENKINS_CRUMB=$(curl --silent --cookie-jar $COOKIE_JAR $JENKINS_URL'/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)' -u $JENKINS_USER:$JENKINS_TOKEN)
+
+curl -XPOST -I --cookie $COOKIE_JAR "$JENKINS_URL/job/$JOB_NAME/build?${JENKINS_CRUMB/:/=}" -u $JENKINS_USER:$JENKINS_TOKEN -v
+
+  if [ $? -eq 0 ] ; then
+    echo "*** Ok"
+  else
+    echo "*** Error"
+  fi
+fi
