@@ -27,14 +27,14 @@ pipeline {
                     '''
                 }
             }
+        
+        }
         stage('Deploy'){
             steps{
                 sh '''
                     docker run -d -p 5010:80 192.168.0.11:5000/angular-cli:latest
                 '''
             }
-        }
-
         }
     }
 }
