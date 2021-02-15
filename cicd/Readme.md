@@ -7,6 +7,8 @@ Es necesario crear las siguientes carpetas en el servidor manager donde se ejecu
   
 /volumenes/vol_gitlab  
 /volumenes/vol_gitlab/config
+/volumenes/vol_gitlab/logs
+/volumenes/vol_gitlab/data
   
 /volumenes/vol_jenkins  
 
