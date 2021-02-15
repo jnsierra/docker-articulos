@@ -19,4 +19,4 @@ security:
         strategy: triggeringUsersAuthorizationStrategy
 unclassified:
   location:
-    url: http://192.168.0.11:8082/
+    url: http://192.168.0.20:8082/
