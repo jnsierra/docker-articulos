@@ -12,3 +12,9 @@ Es necesario crear las siguientes carpetas en el servidor manager donde se ejecu
   
 /volumenes/vol_jenkins  
 
+###Gitlab
+***
+La forma de adicionar un repositorio al repositorio local es la siguiente.  
+
+Adicionamos el repositorio remoto.  
+git remote add <nombre-repositorio-remoto> <url-repositorio-remoto>
