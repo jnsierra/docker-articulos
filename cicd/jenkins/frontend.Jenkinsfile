@@ -53,7 +53,7 @@ pipeline {
             steps{
                 sh '''
                     docker run -d -p 5010:80 \
-                                    --name frontend-art
+                                    --name frontend-art \
                                      192.168.0.11:5000/angular-cli:latest
                 '''
             }
