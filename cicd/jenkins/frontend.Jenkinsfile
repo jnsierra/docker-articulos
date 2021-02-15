@@ -5,7 +5,9 @@ pipeline {
     agent any
     stages {
         stage('Clone Repo'){
-            echo 'funciona'
+            steps{
+                echo 'funciona'
+            }
         }
     }
 }
