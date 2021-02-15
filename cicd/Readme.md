@@ -12,7 +12,7 @@ Es necesario crear las siguientes carpetas en el servidor manager donde se ejecu
   
 /volumenes/vol_jenkins  
 
-###Gitlab
+### Gitlab
 ***
 La forma de adicionar un repositorio al repositorio local es la siguiente.  
 
