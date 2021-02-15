@@ -24,3 +24,4 @@ git remote add <nombre-repositorio-remoto> <url-repositorio-remoto>
 ```
 git push <nombre-repositorio-remoto> <branch>
 ```
+gitlab-rake gitlab:storage:rollback_to_legacy ID_FROM=1 ID_TO=50
