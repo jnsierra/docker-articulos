@@ -16,8 +16,11 @@ Es necesario crear las siguientes carpetas en el servidor manager donde se ejecu
 ***
 La forma de adicionar un repositorio al repositorio local es la siguiente.  
 
-Adicionamos el repositorio remoto.  
+- Adicionamos el repositorio remoto.  
 ```bash
 git remote add <nombre-repositorio-remoto> <url-repositorio-remoto> 
 ```
-
+- Hacemos push al repositorio añadido 
+```
+git push <nombre-repositorio-remoto> <branch>
+```
