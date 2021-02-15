@@ -5,6 +5,7 @@ String gitCredentials = "Git_user"
 pipeline {
     agent any
     stages {
+        stage('Remove container')
         stage('Clone Repo'){
             steps{
                 sh 'mkdir -p build-front'
@@ -32,7 +33,9 @@ pipeline {
         stage('Deploy'){
             steps{
                 sh '''
-                    docker run -d -p 5010:80 192.168.0.11:5000/angular-cli:latest
+                    docker run -d -p 5010:80 \
+                                    --name frontend-art
+                                     192.168.0.11:5000/angular-cli:latest
                 '''
             }
         }
