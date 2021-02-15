@@ -1,4 +1,4 @@
-String urlRepoFront = "https://github.com/jnsierra/articulos-web.git"
+String urlRepoFront = "http://192.168.0.20:8929/articulos/articulos-web.git"
 String ipRegistry = "192.168.0.11"
 
 pipeline {
@@ -6,7 +6,10 @@ pipeline {
     stages {
         stage('Clone Repo'){
             steps{
-                echo 'funciona'
+                sh 'mkdir -p build-front'
+                dir('build-front'){
+                    git branch: 'master', url: urlRepoFront
+                }
             }
         }
     }
