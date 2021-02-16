@@ -1,5 +1,4 @@
 String urlRepoBack  = "https://github.com/jnsierra/api-article.git"
-String urlRepoFront = "https://github.com/jnsierra/articulos-web.git"
 String ipRegistry = "192.168.0.11"
 
 pipeline {
@@ -28,23 +27,15 @@ pipeline {
                       echo 'No fue posible borrar el stack'
                      }
                 }
-                
                 echo 'Fin delete stack'
             }
         }
         stage('Clone Repo Front and Backend'){
           steps {
-              parallel("Clone repo Back": {
-                sh 'mkdir -p build-back'
-                dir('build-back'){
-                        git branch: 'develop', url: urlRepoBack
-                }
-              }, "Clone Repo Front":{
-                sh 'mkdir -p build-front'
-                dir('build-front'){
-                    git branch: 'master', url: urlRepoFront
-                }
-              })
+            sh 'mkdir -p build-back'
+            dir('build-back'){
+                    git branch: 'develop', url: urlRepoBack
+            }
           }
         }
         stage('Test'){
