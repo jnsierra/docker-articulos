@@ -21,6 +21,3 @@ ws-cleanup:latest
 authorize-project:latest
 maven-plugin:latest
 pipeline-maven:latest
-gitlab-plugin:latest
-gitlab-hook:latest
-
