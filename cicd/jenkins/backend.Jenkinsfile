@@ -54,7 +54,7 @@ pipeline {
                 echo 'Compilando y construyendo el codigo desde maven'
                 sh ''' 
                     docker run --rm -v /root/.m2:/root/.m2 \
-                                    -v /volumenes/vol_jenkins/workspace/pipeline-job/build-back:/app \
+                                    -v /volumenes/vol_jenkins/workspace/pipeline-job-backend/build-back:/app \
                                     -w /app maven:3-openjdk-11 mvn -B -DskipTests clean package
                    '''
                 echo 'Fin Building...' 
