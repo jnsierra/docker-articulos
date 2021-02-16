@@ -42,7 +42,7 @@ pipeline {
             steps{
                 echo 'Start Testing...'
                 sh '''
-                     docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job/build-back:/app \
+                     docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job-backend/build-back:/app \
                      -w /app maven:3-openjdk-11 mvn -B test
                    '''
                 echo 'Finish Testing...'
