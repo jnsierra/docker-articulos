@@ -9,11 +9,6 @@ pipeline {
             description: 'Al encontrarse en si el parametro ejecutara el comando para eliminar las imagenes locales previas al despliegue',
             name: 'BORRAR_IMAGENES'
         )
-        choice(
-            choices: ['ESENCIALES' , 'CODIGO', 'ALL'],
-            description: 'Indica el tipo de despliegue que se debe realizar (ESENCIALES) Servicios como bases de datos (CODIGO) Microservicios propios de la aplicacion',
-            name: 'TIPO_DESPLIEGUE'
-        )
     }
 
     stages {
