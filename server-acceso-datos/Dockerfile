@@ -7,7 +7,7 @@ WORKDIR /opt/
 
 RUN chmod 0600 pgpass.conf
 RUN apt-get update && \
-    apt-get install postgresql 
+    apt-get install postgresql -y
 
 ADD jar/api-acceso-datos.jar /opt/
 ADD execute-jar.sh /opt/
