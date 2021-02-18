@@ -11,8 +11,10 @@ while [ "$status_code" != "200" ]; do
     status_code=$(timeout 2s curl --write-out %{http_code} --silent --output /opt/salida "$url" )
 
     if [ "$status_code" != "200" ]; then
-       echo "Servicio de descubrimiento no disponible" > /opt/validacion
+       echo "Servicio de descubrimiento no disponible" > /opt/validacionFallida
+       echo "Servicio de descubrimiento no disponible" 
     fi
 done
 
-echo "Servicio de descubrimiento disponible"
+echo "Servicio de descubrimiento disponible" > /opt/validacionExitosa
+echo "Servicio de descubrimiento disponible" 
