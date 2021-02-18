@@ -16,6 +16,7 @@ ADD execute-jar.sh /opt/
 
 COPY wait-for-postgres.sh /opt/
 RUN chmod +x wait-for-postgres.sh
+RUN chmod +x wait-for-discovery.sh
 RUN chmod +x execute-jar.sh  
 
 ENTRYPOINT  ["sh","/opt/execute-jar.sh"]
