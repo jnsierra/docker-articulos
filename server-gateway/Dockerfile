@@ -6,5 +6,5 @@ WORKDIR /opt/
 #USER root
 RUN chmod +x execute-jar.sh  
 RUN chmod +x wait-for-discovery.sh
-CMD ["sh", "/opt/wait-for-discovery.sh", "server-discovery"]
+CMD sh wait-for-discovery.sh server-discovery
 ENTRYPOINT  ["sh","/opt/execute-jar.sh"]
