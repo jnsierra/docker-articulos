@@ -77,6 +77,7 @@ services:
          - api-article-net
         environment:
          - PROFILE_JAR=prod
+         - SERVER_DISCOVERY=server-discovery
         depends_on:
          - service-rabbitmq
          - service-zipkin
