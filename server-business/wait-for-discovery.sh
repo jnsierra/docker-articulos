@@ -14,6 +14,9 @@ while [ "$status_code" != "200" ]; do
        echo "Servicio de descubrimiento no disponible" > /opt/validacionFallida
        echo "Servicio de descubrimiento no disponible" 
     fi
+
+    sleep 3
+
 done
 
 echo "Servicio de descubrimiento disponible" > /opt/validacionExitosa
