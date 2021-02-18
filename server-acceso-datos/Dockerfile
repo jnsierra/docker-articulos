@@ -18,5 +18,4 @@ COPY wait-for-postgres.sh /opt/
 RUN chmod +x wait-for-postgres.sh
 RUN chmod +x execute-jar.sh  
 
-CMD sh wait-for-postgres.sh service-postgres12
 ENTRYPOINT  ["sh","/opt/execute-jar.sh"]
