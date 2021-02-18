@@ -10,8 +10,8 @@ pipeline {
             name: 'BORRAR_IMAGENES'
         )
         choice(
-            choices: ['FRONTEND' , 'BACKEND', 'ALL'],
-            description: 'Indica el tipo de despliegue que se debe realizar',
+            choices: ['ESENCIALES' , 'CODIGO', 'ALL'],
+            description: 'Indica el tipo de despliegue que se debe realizar (ESENCIALES) Servicios como bases de datos (CODIGO) Microservicios propios de la aplicacion',
             name: 'TIPO_DESPLIEGUE'
         )
     }
