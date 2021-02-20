@@ -68,6 +68,6 @@ En el caso que la url no exista ejecuta el siguiente comando y vuelve a buscar l
 ```
 gitlab-rake gitlab:storage:rollback_to_legacy ID_FROM=1 ID_TO=50
 ```
-Creamos la carpeta custom_hooks dentro del repositorio que deseamos crear el gatillo
+Creamos la carpeta custom_hooks dentro del repositorio que deseamos crear el gatillo y dentro de esta creamos el archivo 
 
 
