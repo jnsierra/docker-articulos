@@ -57,7 +57,7 @@ git remote add <nombre-repositorio-remoto> <url-repositorio-remoto>
 ```
 git push <nombre-repositorio-remoto> <branch>
 ```
-###Generar Git hooks
+### Generar Git hooks
 Se requiere ir a la ubicación de los repositorios ruta 
 
 ```
