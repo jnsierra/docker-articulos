@@ -25,7 +25,7 @@ services:
          - api-article-net
         restart: always
         volumes:
-         - /local-volumenes/vol_postgresql:/var/lib/postgresql/data
+         - /volumenes/vol_postgresql:/var/lib/postgresql/data
         environment: 
             POSTGRES_DB: articulos
             POSTGRES_PASSWORD: 12345678
