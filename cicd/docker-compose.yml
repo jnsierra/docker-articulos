@@ -3,7 +3,7 @@ version: '3'
 services:
     jenkins:
         user: root
-        image: 192.168.0.11:5000/api-jenkins:latest
+        image: 192.168.0.30:5000/api-jenkins:latest
         ports:
          - "8082:8080"
          - "50000:50000"
