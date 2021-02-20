@@ -1,5 +1,5 @@
 String urlRepoBack  = "https://github.com/jnsierra/api-article.git"
-String ipRegistry = "192.168.0.11"
+String ipRegistry = "192.168.0.30"
 
 pipeline {
     agent any
