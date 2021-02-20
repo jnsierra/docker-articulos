@@ -1,6 +1,28 @@
 # Continuous integration 
 ***
 Proyecto en el cual se encuentran lo necesaria para integracion continua del proyecto para la creacion de articulos de investigacion.  
+
+# Crear contenedor Registry
+***
+Ejecutamos el siguiente comando para generar el contenedor de registro.
+```
+docker run -d --name repo-api -p 5000:5000 -v /volumenes/vol_registry:/var/lib/registry registry:latest
+```
+
+Permitimos subir imagenes por medio de http  
+
+Creamos o modificamos el siguiente directorio.
+```
+/etc/docker/daemon.json
+```
+Adicionamos lo siguiente en el archivo.
+```
+{ "insecure-registries":["<ip-server>:5000"] }
+``` 
+Reiniciamos el servicio de docker
+```
+sudo service docker restart
+```
 ## Volumenes
 ***
 Es necesario ejecutar el siguiente comando, esto con el fin de crear los volumenes necesarios para su funcionamiento.  
