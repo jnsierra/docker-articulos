@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
     server-config:
-        image: 192.168.0.11:5000/server-config:latest
+        image: 192.168.0.30:5000/server-config:latest
         ports:
          - "8888:8888"
         networks:
@@ -10,7 +10,7 @@ services:
         environment:
          - PROFILE_JAR=prod
     server-discovery:
-        image: 192.168.0.11:5000/server-discovery:latest 
+        image: 192.168.0.30:5000/server-discovery:latest 
         ports:
          - "1111:1111"
         networks:
@@ -44,7 +44,7 @@ services:
         networks:
          - api-article-net
     service-zipkin:
-        image: 192.168.0.11:5000/server-zipkin:latest
+        image: 192.168.0.30:5000/server-zipkin:latest
         ports:
                 - "9411:9411"
         networks:
@@ -54,7 +54,7 @@ services:
         depends_on:
          - service-rabbitmq
     service-acceso-datos:
-        image: 192.168.0.11:5000/server-acceso-datos:latest
+        image: 192.168.0.30:5000/server-acceso-datos:latest
         ports:
          - "5003:5003"
         networks:
@@ -70,7 +70,7 @@ services:
          - server-discovery
          - server-config
     service-business:
-        image: 192.168.0.11:5000/server-business:latest
+        image: 192.168.0.30:5000/server-business:latest
         ports:
          - "5000:5000"
         networks:
@@ -85,7 +85,7 @@ services:
          - server-discovery
          - server-config
     service-gateway:
-        image: 192.168.0.11:5000/server-gateway:latest
+        image: 192.168.0.30:5000/server-gateway:latest
         ports:
          - "5002:5002"
         networks:
