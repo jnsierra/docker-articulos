@@ -32,7 +32,8 @@ sudo mkdir -p /volumenes/vol_gitlab \
         /volumenes/vol_gitlab/config  /volumenes/vol_gitlab/logs /volumenes/vol_gitlab/data \
         /volumenes/vol_jenkins \
         /volumenes/vol_registry \
-        /volumenes/vol_postgresql
+        /volumenes/vol_postgresql \
+        /volumenes/vol_elasticsearch/data
 ```
   
 /volumenes/vol_gitlab  
