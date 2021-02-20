@@ -57,4 +57,14 @@ git remote add <nombre-repositorio-remoto> <url-repositorio-remoto>
 ```
 git push <nombre-repositorio-remoto> <branch>
 ```
+####Generar Git hooks
+Se requiere ir a la ubicación de los repositorios ruta 
+
+```
+/var/opt/gitlab/git-data/repository
+```
+En el caso que la url no exista ejecuta el siguiente comando y vuelve a buscar la ruta anteriormente mencionada.
+
+```
 gitlab-rake gitlab:storage:rollback_to_legacy ID_FROM=1 ID_TO=50
+```
