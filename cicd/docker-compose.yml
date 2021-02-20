@@ -35,8 +35,8 @@ services:
         - 9200:9200
         - 9300:9300
         deploy:
-        mode: replicated
-        replicas: 1
+            mode: replicated
+            replicas: 1
     kibana:
         image: docker.elastic.co/kibana/kibana:7.9.3
         ports:
