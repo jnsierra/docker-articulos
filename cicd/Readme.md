@@ -31,7 +31,8 @@ Es necesario ejecutar el siguiente comando, esto con el fin de crear los volumen
 sudo mkdir -p /volumenes/vol_gitlab \
         /volumenes/vol_gitlab/config  /volumenes/vol_gitlab/logs /volumenes/vol_gitlab/data \
         /volumenes/vol_jenkins \
-        /volumenes/vol_registry
+        /volumenes/vol_registry \
+        /volumenes/vol_postgresql
 ```
   
 /volumenes/vol_gitlab  
@@ -40,6 +41,8 @@ sudo mkdir -p /volumenes/vol_gitlab \
 /volumenes/vol_gitlab/data
   
 /volumenes/vol_jenkins  
+
+/volumenes/vol_postgresql
 
 ### Gitlab
 ***
