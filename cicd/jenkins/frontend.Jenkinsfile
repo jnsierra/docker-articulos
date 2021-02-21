@@ -1,5 +1,5 @@
-String urlRepoFront = "http://192.168.0.20:8929/articulos/articulos-web.git"
-String ipRegistry = "192.168.0.11"
+String urlRepoFront = "http://192.168.0.30:8929/ud/articulos-web.git"
+String ipRegistry = "192.168.0.30"
 String gitCredentials = "Git_user"
 
 pipeline {
@@ -36,15 +36,9 @@ pipeline {
         stage('Build'){
             steps{
                 dir('build-front'){
-                    sh '''
-                        docker build -t "192.168.0.11:5000/angular-cli:latest" .
-                    '''
-                    sh '''
-                        docker push 192.168.0.11:5000/angular-cli:latest
-                    '''
-                    sh '''
-                        docker rmi 192.168.0.11:5000/angular-cli:latest
-                    '''
+                    sh 'docker build -t "'+ipRegistry+':5000/angular-cli:latest" .'
+                    sh 'docker push '+ipRegistry+':5000/angular-cli:latest'
+                    sh 'docker rmi '+ipRegistry+':5000/angular-cli:latest'
                 }
             }
         
