@@ -37,12 +37,8 @@ pipeline {
             steps{
                 dir('build-front'){
                     sh 'docker build -t "'+ipRegistry+':5000/angular-cli:latest" .'
-                    sh '''
-                        docker push '+ipRegistry+':5000/angular-cli:latest
-                    '''
-                    sh '''
-                        docker rmi '+ipRegistry+':5000/angular-cli:latest
-                    '''
+                    sh 'docker push '+ipRegistry+':5000/angular-cli:latest'
+                    sh 'docker rmi '+ipRegistry+':5000/angular-cli:latest'
                 }
             }
         
