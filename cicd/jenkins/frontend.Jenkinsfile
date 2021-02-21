@@ -1,5 +1,5 @@
 String urlRepoFront = "http://192.168.0.30:8929/ud/articulos-web.git"
-String ipRegistry = "192.168.0.33"
+String ipRegistry = "192.168.0.30"
 String gitCredentials = "Git_user"
 
 pipeline {
