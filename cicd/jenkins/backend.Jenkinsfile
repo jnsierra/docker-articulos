@@ -92,7 +92,7 @@ pipeline {
                     sh 'docker build -t "${IP_REGISTRY}:5000/server-acceso-datos:latest" .'
                 }   
                 dir('server-business'){
-                    sh 'docker build -t "${IP_REGISTRY}5000/server-business:latest" .'
+                    sh 'docker build -t "${IP_REGISTRY}:5000/server-business:latest" .'
                 } 
                 dir('server-config'){
                     sh 'docker build -t "${IP_REGISTRY}:5000/server-config:latest" .'
