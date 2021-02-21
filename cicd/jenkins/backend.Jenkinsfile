@@ -1,5 +1,4 @@
 String urlRepoBack  = "https://github.com/jnsierra/api-article.git"
-String ipRegistry = "192.168.0.30"
 
 pipeline {
     agent any
@@ -75,11 +74,11 @@ pipeline {
             steps{
                 script{
                      try {
-                        sh 'docker rmi '+ipRegistry+':5000/server-gateway '+ipRegistry+':5000/server-discovery '
-                        sh 'docker rmi '+ipRegistry+':5000/server-config '
-                        sh 'docker rmi '+ipRegistry+':5000/server-business '
-                        sh 'docker rmi '+ipRegistry+':5000/server-acceso-datos '
-                        sh 'docker rmi '+ipRegistry+':5000/server-zipkin'
+                        sh 'docker rmi ${IP_REGISTRY}:5000/server-gateway '+ipRegistry+':5000/server-discovery '
+                        sh 'docker rmi ${IP_REGISTRY}:5000/server-config '
+                        sh 'docker rmi ${IP_REGISTRY}:5000/server-business '
+                        sh 'docker rmi ${IP_REGISTRY}:5000/server-acceso-datos '
+                        sh 'docker rmi ${IP_REGISTRY}:5000/server-zipkin'
                      } catch (Exception e) {
                       echo 'No fue posible borrar el stack'
                      }
@@ -90,22 +89,22 @@ pipeline {
             steps {
                 echo 'Ini Tag images...'
                 dir('server-acceso-datos'){
-                    sh 'docker build -t "'+ipRegistry+':5000/server-acceso-datos:latest" .'
+                    sh 'docker build -t "${IP_REGISTRY}:5000/server-acceso-datos:latest" .'
                 }   
                 dir('server-business'){
-                    sh 'docker build -t "'+ipRegistry+':5000/server-business:latest" .'
+                    sh 'docker build -t "${IP_REGISTRY}:5000/server-business:latest" .'
                 } 
                 dir('server-config'){
-                    sh 'docker build -t "'+ipRegistry+':5000/server-config:latest" .'
+                    sh 'docker build -t "${IP_REGISTRY}:5000/server-config:latest" .'
                 }
                 dir('server-discovery'){
-                    sh 'docker build -t "'+ipRegistry+':5000/server-discovery:latest" .'
+                    sh 'docker build -t "${IP_REGISTRY}:5000/server-discovery:latest" .'
                 }
                 dir('server-gateway'){
-                    sh 'docker build -t "'+ipRegistry+':5000/server-gateway:latest" .'
+                    sh 'docker build -t "${IP_REGISTRY}:5000/server-gateway:latest" .'
                 }
                 dir('server-zipkin'){
-                    sh 'docker build -t "'+ipRegistry+':5000/server-zipkin:latest" .'
+                    sh 'docker build -t "${IP_REGISTRY}:5000/server-zipkin:latest" .'
                 }
                 echo 'Fin Tag images...'
             }
@@ -113,12 +112,12 @@ pipeline {
         stage('Push Images'){
             steps {
                 echo 'Ini up images registry'
-                sh 'docker push '+ipRegistry+':5000/server-config:latest'
-                sh 'docker push '+ipRegistry+':5000/server-business:latest'
-                sh 'docker push '+ipRegistry+':5000/server-discovery:latest'
-                sh 'docker push '+ipRegistry+':5000/server-gateway:latest'
-                sh 'docker push '+ipRegistry+':5000/server-acceso-datos:latest'
-                sh 'docker push '+ipRegistry+':5000/server-zipkin:latest'                
+                sh 'docker push ${IP_REGISTRY}:5000/server-config:latest'
+                sh 'docker push ${IP_REGISTRY}:5000/server-business:latest'
+                sh 'docker push ${IP_REGISTRY}:5000/server-discovery:latest'
+                sh 'docker push ${IP_REGISTRY}:5000/server-gateway:latest'
+                sh 'docker push ${IP_REGISTRY}:5000/server-acceso-datos:latest'
+                sh 'docker push ${IP_REGISTRY}:5000/server-zipkin:latest'                
                 echo 'Fin up images registry'
             }
         }
