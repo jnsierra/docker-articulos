@@ -13,6 +13,7 @@ services:
         environment:
          - JENKINS_ADMIN_ID=admin
          - JENKINS_ADMIN_PASSWORD=admin
+         - IP_REGISTRY=192.168.0.30
         deploy:
             mode: replicated
             replicas: 1
@@ -24,6 +25,7 @@ services:
         restart: always
         hostname: 'gitlab.example.com'
         environment:
+            JENKINS_URL: http://192.168.0.30:8082
             GITLAB_OMNIBUS_CONFIG: |
                 external_url 'http://192.168.0.20:8929'
                 gitlab_rails['gitlab_shell_ssh_port'] = 2224
