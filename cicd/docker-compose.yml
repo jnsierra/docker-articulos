@@ -19,40 +19,6 @@ services:
             placement:
                 constraints:
                  - "node.role==manager"
-    elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.9.3
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        environment:
-        - bootstrap.memory_lock=true
-        - "ES_JAVA_OPTS= -Xms512m -Xmx512m"
-        - discovery.type=single-node
-        volumes:
-        - /volumenes/vol_elasticsearch/data:/usr/share/elasticsearch/data
-        ports:
-        - 9200:9200
-        - 9300:9300
-        deploy:
-            mode: replicated
-            replicas: 1
-    kibana:
-        image: docker.elastic.co/kibana/kibana:7.9.3
-        ports:
-        - 5601:5601
-        depends_on:
-        - elasticsearch
-    logstash:
-        image: docker.elastic.co/logstash/logstash:7.9.3
-        ulimits:
-            memlock:
-                soft: -1
-                hard: -1
-        #volumes:
-        #- ./logstash/pipeline/:/usr/share/logstash/pipeline
-        depends_on:
-        - elasticsearch
     gitlab:
         image: 'gitlab/gitlab-ee:latest'
         restart: always
