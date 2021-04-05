@@ -84,6 +84,8 @@ services:
          - service-postgres12
          - server-discovery
          - server-config
+        volumes:
+         - /volumenes/vol_repository:/opt/repository
     service-gateway:
         image: 192.168.0.30:5000/server-gateway:latest
         ports:
