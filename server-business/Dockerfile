@@ -6,4 +6,5 @@ WORKDIR /opt/
 #USER root
 RUN chmod +x execute-jar.sh  
 RUN chmod +x wait-for-discovery.sh
+RUN mkdir -p /opt/repository/documentos/formatos
 ENTRYPOINT  ["sh","/opt/execute-jar.sh"]
