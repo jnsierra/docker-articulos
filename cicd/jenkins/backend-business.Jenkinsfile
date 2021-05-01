@@ -9,7 +9,8 @@ pipeline {
             name: 'BORRAR_IMAGENES'
         )
     }
-     stage('Delete Stack'){
+    stages {
+        stage('Delete Stack'){
             steps{
                 echo 'Ini delete stack'
                 script {
@@ -22,8 +23,6 @@ pipeline {
                 echo 'Fin delete stack'
             }
         }
-
-    stages {
         stage('Clone Repo Front and Backend'){
           steps {
             sh 'mkdir -p build-back'
