@@ -23,8 +23,8 @@ pipeline {
             steps{
                 echo 'Start Testing...'
                 sh '''
-                     docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job-backend-business/build-back/api-business:/app \
-                     -w /app maven:3-openjdk-11 mvn clean install
+                     docker run --rm -v /root/.m2:/root/.m2 -v /volumenes/vol_jenkins/workspace/pipeline-job-backend-business/build-back:/app \
+                     -w /app maven:3-openjdk-11 mvn clean install -pl api-business -am
                    '''
                 echo 'Finish Testing...'
             }
