@@ -9,6 +9,19 @@ pipeline {
             name: 'BORRAR_IMAGENES'
         )
     }
+     stage('Delete Stack'){
+            steps{
+                echo 'Ini delete stack'
+                script {
+                    try {
+                        sh 'docker stack rm api-service'
+                     } catch (Exception e) {
+                      echo 'No fue posible borrar el stack'
+                     }
+                }
+                echo 'Fin delete stack'
+            }
+        }
 
     stages {
         stage('Clone Repo Front and Backend'){
