@@ -63,6 +63,7 @@ pipeline {
         }
         stage('Push Images'){
             steps {
+                sh 'docker stack rm api-service'
                 echo 'Ini up images registry'
                 sh 'docker push ${IP_REGISTRY}:5000/server-business:latest'             
                 echo 'Fin up images registry'
@@ -70,7 +71,6 @@ pipeline {
         }
         stage('deploy stack'){
             steps{
-                sh 'docker stack rm api-service'
                 sh 'docker stack deploy -c docker-compose.yml api-service'
             }
         }
