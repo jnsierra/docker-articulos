@@ -8,4 +8,5 @@ RUN chmod +x execute-jar.sh
 RUN chmod +x wait-for-discovery.sh
 RUN mkdir -p /opt/repository/documentos/formatos 
 RUN mkdir -p /opt/repository/documentos/comentario
+RUN mkdir -p /opt/repository/documentos/usuario
 ENTRYPOINT  ["sh","/opt/execute-jar.sh"]
