@@ -76,7 +76,6 @@ pipeline {
         }
         stage('Push Images'){
             steps {
-                sh 'docker stack rm api-service'
                 echo 'Ini up images registry'
                 sh 'docker push ${IP_REGISTRY}:5000/server-business:latest'             
                 echo 'Fin up images registry'
