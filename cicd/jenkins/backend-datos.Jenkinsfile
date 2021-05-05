@@ -67,7 +67,7 @@ pipeline {
         stage('Tag Images'){
             steps {
                 echo 'Ini Tag images...'                
-                dir('server-business'){
+                dir('server-acceso-datos'){
                     sh 'docker build -t "${IP_REGISTRY}:5000/server-acceso-datos:latest" .'
                 } 
                 echo 'Fin Tag images...'
