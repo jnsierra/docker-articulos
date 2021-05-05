@@ -57,7 +57,7 @@ pipeline {
             steps{
                 script{
                      try {
-                        sh 'docker rmi ${IP_REGISTRY}:5000/server-business '
+                        sh 'docker rmi ${IP_REGISTRY}:5000/server-acceso-datos '
                      } catch (Exception e) {
                       echo 'No fue posible borrar el stack'
                      }
