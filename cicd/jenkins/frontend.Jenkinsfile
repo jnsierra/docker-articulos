@@ -1,5 +1,7 @@
-String urlRepoFront = "http://192.168.0.30:8929/ud/articulos-web.git"
+//String urlRepoFront = "http://192.168.0.30:8929/ud/articulos-web.git"
 String gitCredentials = "Git_user"
+
+String urlRepoFront = "https://github.com/jnsierra/articulos-web.git"
 
 pipeline {
     agent any
@@ -28,7 +30,8 @@ pipeline {
             steps{
                 sh 'mkdir -p build-front'
                 dir('build-front'){
-                    git branch: 'master', url: urlRepoFront, credentialsId: gitCredentials
+                    //git branch: 'master', url: urlRepoFront, credentialsId: gitCredentials
+                    git branch: 'master', url: urlRepoFront
                 }
             }
         }
